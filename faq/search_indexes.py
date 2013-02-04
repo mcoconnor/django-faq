@@ -12,7 +12,7 @@ The super class for these indexes can be customized by using the
 
 from haystack import indexes
 
-from faq.settings import SEARCH_INDEX
+from faq.settings import SEARCH_INDEX, REGISTER_SEARCH
 from faq.models import Topic, Question
 
 
@@ -61,9 +61,10 @@ class QuestionIndex(FAQIndexBase, mixin):
 
 # try/except in order to register search indexes with site for Haystack 1.X
 # without throwing exceptions with Haystack 2.0.
-try:
-    from haystack.sites import site
-    site.register(Topic, TopicIndex)
-    site.register(Question, QuestionIndex)
-except ImportError:
-    pass
+if REGISTER_SEARCH:
+    try:
+        from haystack.sites import site
+        site.register(Topic, TopicIndex)
+        site.register(Question, QuestionIndex)
+    except ImportError:
+        pass

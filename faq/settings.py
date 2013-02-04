@@ -19,6 +19,7 @@ STATUS_CHOICES = (
 )
 STATUS_CHOICES = getattr(settings, 'FAQ_STATUS_CHOICES', STATUS_CHOICES)
 
+REGISTER_SEARCH = getattr(settings, 'FAQ_REGISTER_SEARCH', True)
 
 # Haystack settings.
 # The default search index used for the app is the default haystack index.
