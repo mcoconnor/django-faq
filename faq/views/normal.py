@@ -1,33 +1,24 @@
 # -*- coding: utf-8 -*-
 
 from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404, redirect
-from django.views.generic.list_detail import object_detail
+from django.views.generic.detail import DetailView
 
 from faq.models import Topic, Question
 from faq.views.shallow import _fragmentify
 
 
-def topic_detail(request, slug):
-    """
-    A detail view of a Topic
+class TopicDetailView(DetailView):
+    model = Topic
 
-    Templates:
-        :template:`faq/topic_detail.html`
-    Context:
-        topic
-            An :model:`faq.Topic` object.
-        question_list
-            A list of all published :model:`faq.Question` objects that relate
-            to the given :model:`faq.Topic`.
+    def get_context_data(self, **kwargs):
+        context = super(TopicDetailView, self).get_context_data(**kwargs)
+        context['question_list'] = Question.objects.published().filter(
+            topic__slug=context['topic'].slug
+        )
+        return context
 
-    """
-    extra_context = {
-        'question_list': Question.objects.published().filter(topic__slug=slug),
-    }
-
-    return object_detail(request, queryset=Topic.objects.published(),
-        extra_context=extra_context, template_object_name='topic', slug=slug)
+    def get_template_names(self):
+        return ['faq/topic_detail.html']
 
 
 def question_detail(request, topic_slug, slug):
