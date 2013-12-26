@@ -2,8 +2,7 @@
 
 from django.conf.urls.defaults import *
 
-from faq.views.shallow import topic_list, topic_detail, question_detail
-
+from faq.views.shallow import TopicListView, topic_detail, question_detail
 
 # Include these patterns if you want URLs like:
 #

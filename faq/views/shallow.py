@@ -2,7 +2,8 @@
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic.list_detail import object_list
+
+from django.views.generic.list import ListView
 
 from faq.models import Topic, Question
 
@@ -15,20 +16,11 @@ def _fragmentify(model, slug, url=None):
     return redirect(url + fragment, permanent=True)
 
 
-def topic_list(request):
-    """
-    A list view of all published Topics
+class TopicListView(ListView):
+    model = Topic
 
-    Templates:
-        :template:`faq/topic_list.html`
-    Context:
-        topic_list
-            A list of all published :model:`faq.Topic` objects that
-            relate to the current :model:`sites.Site`.
-
-    """
-    return object_list(request, queryset=Topic.objects.published(),
-        template_object_name='topic')
+    def get_template_names(self):
+        return ['faq/topic_list.html']
 
 
 def topic_detail(request, slug):
