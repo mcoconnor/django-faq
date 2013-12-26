@@ -29,14 +29,14 @@ setup(
     author_email='ben@benspaulding.us',
     license='BSD',
     download_url='http://github.com/benspaulding/django-faq/tarball/v%s' % get_version(),
-    long_description = get_long_desc(),
-    packages = [
+    long_description=get_long_desc(),
+    packages=[
         'faq',
         'faq.tests',
         'faq.urls',
         'faq.views',
     ],
-    package_data = {
+    package_data={
         'faq': [
             'fixtures/*',
             'locale/*/LC_MESSAGES/*',

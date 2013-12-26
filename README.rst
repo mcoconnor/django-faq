@@ -1,6 +1,6 @@
-============================================================
- Frequently Asked Question (FAQ) management for Django apps
-============================================================
+==========================================================
+Frequently Asked Question (FAQ) management for Django apps
+==========================================================
 
 This Django_ application provides the ability to create and manage lists of
 Frequently Asked Questions (FAQ), organized by topic.
@@ -12,7 +12,7 @@ months.
 
 .. _Django: http://www.djangoproject.com/
 
-TODO’s
+TODO's
 ------
 
 Below are tasks that need done, features under consideration, and some
