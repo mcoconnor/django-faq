@@ -75,10 +75,14 @@ class FAQBase(models.Model):
 
     created = models.DateTimeField(_(u'date created'), auto_now_add=True)
     modified = models.DateTimeField(_(u'date modified'), auto_now=True)
-    status = models.IntegerField(_(u'status'), choices=STATUS_CHOICES,
+    status = models.IntegerField(
+        _(u'status'),
+        choices=STATUS_CHOICES,
         # TODO: Genericize/fix the help_text.
-        db_index=True, default=DRAFTED, help_text=_(u'Only objects with \
-            "published" status will be displayed publicly.'))
+        db_index=True,
+        default=DRAFTED,
+        help_text=_(u'Only objects with "published" '
+                    'status will be displayed publicly.'))
 
     objects = OnSiteManager()
 
@@ -93,9 +97,13 @@ class Topic(FAQBase):
     title = models.CharField(_(u'title'), max_length=255)
     slug = models.SlugField(_(u'slug'), unique=True, help_text=_(u'Used in \
         the URL for the topic. Must be unique.'))
-    description = models.TextField(_(u'description'), blank=True,
+    description = models.TextField(
+        _(u'description'),
+        blank=True,
         help_text=_(u'A short description of this topic.'))
-    sites = models.ManyToManyField(Site, verbose_name=_(u'sites'),
+    sites = models.ManyToManyField(
+        Site,
+        verbose_name=_(u'sites'),
         related_name='faq_topics')
 
     class Meta(FAQBase.Meta):
@@ -118,10 +126,15 @@ class Question(FAQBase):
     slug = models.SlugField(_(u'slug'), unique=True, help_text=_(u'Used in \
         the URL for the Question. Must be unique.'))
     answer = models.TextField(_(u'answer'))
-    topic = models.ForeignKey(Topic, verbose_name=_(u'topic'),
+    topic = models.ForeignKey(
+        Topic,
+        verbose_name=_(u'topic'),
         related_name='questions')
-    ordering = models.PositiveSmallIntegerField(_(u'ordering'), blank=True,
-        db_index=True, help_text=_(u'An integer used to order the question \
+    ordering = models.PositiveSmallIntegerField(
+        _(u'ordering'),
+        blank=True,
+        db_index=True,
+        help_text=_(u'An integer used to order the question \
             amongst others related to the same topic. If not given this \
             question will be last in the list.'))
 
@@ -158,5 +171,6 @@ class Question(FAQBase):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('faq-question-detail', (), {'topic_slug': self.topic.slug,
+        return ('faq-question-detail', (), {
+            'topic_slug': self.topic.slug,
             'slug': self.slug})

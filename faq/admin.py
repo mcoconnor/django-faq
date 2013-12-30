@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_noop, ungettext
 
@@ -27,7 +26,7 @@ def update_status(modeladmin, request, queryset, status):
         # Now log what happened.
         # Use ugettext_noop() 'cause this is going straight into the db.
         log_message = ugettext_noop(u'Changed status to \'%s\'.' %
-            obj.get_status_display())
+                                    obj.get_status_display())
         modeladmin.log_change(request, obj, log_message)
 
     # Send a message to the user telling them what has happened.
@@ -105,8 +104,7 @@ class TopicAdmin(FAQAdminBase):
 class QuestionAdmin(FAQAdminBase):
     fieldsets = (
         (None, {
-            'fields': ('topic', 'question', 'slug', 'answer', 'status',
-                'ordering')}),
+            'fields': ('topic', 'question', 'slug', 'answer', 'status', 'ordering')}),
     )
     list_display = ('question', 'topic', 'status', 'ordering')
     list_filter = ('status', 'topic', 'modified', 'created')
