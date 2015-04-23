@@ -18,7 +18,7 @@ months.
 from django.utils.translation import ugettext_lazy as _
 
 
-__version__ = '0.8.6'
+__version__ = '0.9b1'
 
 # Mark the app_label for translation.
 _(u'faq')
