@@ -2,13 +2,15 @@
 
 import os
 
-from distutils.core import setup
+from setuptools import setup
 
 
 here = os.path.dirname(__file__)
 
+
 def get_long_desc():
     return open(os.path.join(here, 'README.rst')).read()
+
 
 # Function borrowed from carljm.
 def get_version():
